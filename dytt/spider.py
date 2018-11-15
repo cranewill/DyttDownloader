@@ -1,5 +1,5 @@
 '''
-Created on 2018年11月14日
+Created on 2018�?11�?14�?
 
 @author: Tsuru
 '''
@@ -22,7 +22,7 @@ class spider:
         for tag in link.descendants:
             if tag.name == 'a':
                 if (tag['href'] != '/html/gndy/dyzz/index.html') & (tag['href'] != '/app.html'):
-                    url_list.append(tag['href'])  # 取href的时候和取class的时候又不一样，href的值不是一个数组，不需要再取下标
+                    url_list.append(tag['href'])  # 取href的时候和取class的时候又不一样，href的�?�不是一个数组，不需要再取下�?
         return url_list
     
     def findMagnetUrl(self, link):

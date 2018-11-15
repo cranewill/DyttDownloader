@@ -1,19 +1,21 @@
-import urllib.request;
-import urllib.parse;
-import re;
-import bs4;
-import sys;
-import os;
-from spider import spider;
-from win32com.client import Dispatch;
-
 '''
 Created on 2018年11月14日
 
 @author: Tsuru
 '''
 
+import sys;
+
+import bs4;
+from win32com.client import Dispatch;
+
+from spider import spider;
+
+
 if __name__ == '__main__':
+    
+    print(sys.path)
+    
     spider = spider()
     
     content = spider.fetchContent("https://www.dytt8.net")
