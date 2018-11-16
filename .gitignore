@@ -1,3 +1,5 @@
 /dytt/build
 /dytt/dist
 /dytt/dytt.spec
+/dytt/__pycache__
+/.settings/*.prefs

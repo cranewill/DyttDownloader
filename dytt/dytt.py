@@ -1,20 +1,16 @@
+# coding=utf-8
+
 '''
 Created on 2018年11月14日
 
 @author: Tsuru
 '''
 
-import sys;
-
+import os;
 import bs4;
-from win32com.client import Dispatch;
-
 from spider import spider;
 
-
 if __name__ == '__main__':
-    
-    print(sys.path)
     
     spider = spider()
     
@@ -38,29 +34,41 @@ if __name__ == '__main__':
 #           results = re.findall(pattern, str(link))
 #           print(results)
 ################################################################################################
-            url_list = []
-            url_list = spider.findDLUrl(link)
-#             print(url_list)
-            # 这里拿到所有新片的下载页面的url，拼接一下就可以继续抓取
-            for url in url_list :
-                url = "https://www.dytt8.net" + url
-                content = spider.fetchContent(url)
-                # 继续解析该页面
-                soup = bs4.BeautifulSoup(content, "html.parser")
-                movieName = soup.title.string
-                print(movieName)
-                for tag in soup.find_all(id='Zoom'):
-                    if (tag.name == 'div'):
-                        magnetUrl = spider.findMagnetUrl(tag)
-                
-                # 调用迅雷接口方法
-                # 1.调用迅雷的代理
-#                 thunder = Dispatch('ThunderAgent.Agent64.1') # 64位和32位的区别
-                thunder = Dispatch('ThunderAgent.Agent.1')
-                thunder.AddTask(magnetUrl, movieName)
-                thunder.CommitTasks()
-                
-                # 2.系统执行exe的方式打开迅雷并传入下载链接
-#                 os.execl("D:\Softwares\Program\Thunder.exe", '-StartType:DesktopIcon', 'magnet:?xt=urn:btih:1710e389ee578b6e1ec2906d6f1e7dceadc1a53a&amp;dn=%e9%98%b3%e5%85%89%e7%94%b5%e5%bd%b1www.ygdy8.com.%e6%9a%97%e6%95%b0%e6%9d%80%e4%ba%ba.BD.720p.%e9%9f%a9%e8%af%ad%e4%b8%ad%e5%ad%97.mkv')
-#                 os.execl("D:\Softwares\Program\Thunder.exe", '-StartType:DesktopIcon', 'magnet:?xt=urn:btih:9b9bba10ebce7bfd953e015b25952296a0ec65cc&dn=%e9%98%b3%e5%85%89%e7%94%b5%e5%bd%b1www.ygdy8.com.%e7%8a%ac%e8%88%8d%e7%9c%9f%e4%ba%ba%e7%89%88.BD.720p.%e6%97%a5%e8%af%ad%e4%b8%ad%e5%ad%97.mkv')
+            url_map = spider.findDLUrl(link)
             
+            print('''
+                    　　　　　        ;* *:;,,　　　　　,;**:;, 
+                    　　　　　　　　　;*　　 *:;,.,.,.,,;*　　*;, 
+     电影天堂近期热门     　    　　,:*　　　　　　　　 　　  : :、 
+                    　　　　　　　,:* ／ 　　　　　＼ 　 ::::::::*,　
+                    　　　　　　 :*　 ●　　　　 ●　　　　  :::::i. 
+                    　　　　　　 i　 ***　(_人＿)　**** * 　　 :::::i 
+                    　　　　　 　 :　 　 　　　　　　　　　　:::::i 
+     Tsuru             　　　　   `:,、 　　　　 　 　　 ::::::::: /
+     ver.1.0.1        　　　　　   ,:*　　　　　　　 : ::::::::::::‘:、
+            ''')
+            for _id in url_map.keys() :
+                print('(' + _id + '):' + url_map[_id][0])
+            print('\n输入对应编号下载对应电影，可连续输入多个编号，或者输入星号（*）下载全部')
+            command = input('由于调用迅雷API可能不响应等情况，可能出现下载任务创建失败的情况，重试几次应该就好了 -。-\n')
+            if command == '*' :
+                # 这里拿到所有新片的下载页面的url，拼接一下就可以继续抓取
+                for u_id in url_map.keys() :
+                    urlList = url_map[u_id]
+                    url = "https://www.dytt8.net" + urlList[1]
+                    spider.download(url)
+            else :
+                err = False
+                for u_id in list(command):
+                    if u_id in url_map.keys():
+                        url = url_map[u_id][1]
+                        url = "https://www.dytt8.net" + url
+                        spider.download(url)
+                    else :
+                        err = True
+                if err :
+                    print('检查到输入编号中可能有错误，请核对')
+                    
+                os.system('pause')
+                break
+                    
