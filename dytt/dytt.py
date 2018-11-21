@@ -50,7 +50,7 @@ if __name__ == '__main__':
             for _id in url_map.keys() :
                 print('(' + _id + '):' + url_map[_id][0])
             print('\n输入对应编号下载对应电影，可连续输入多个编号，或者输入星号（*）下载全部')
-            command = input('由于调用迅雷API可能不响应等情况，可能出现下载任务创建失败的情况，重试几次应该就好了 -。-\n')
+            command = input('调用迅雷API可能不响应等情况，可能出现下载任务创建失败的情况，重试几次应该就好了 -。-\n')
             if command == '*' :
                 # 这里拿到所有新片的下载页面的url，拼接一下就可以继续抓取
                 for u_id in url_map.keys() :
