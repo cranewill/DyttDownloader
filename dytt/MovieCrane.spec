@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['MovieCrane.py', 'spider.py', 'crane.py'],
+a = Analysis(['MovieCrane.py', 'spider.py', 'crane.py', 'log.py'],
              pathex=['E:\\Funcell123\\DyttDownloader\\dytt'],
              binaries=[],
              datas=[],
