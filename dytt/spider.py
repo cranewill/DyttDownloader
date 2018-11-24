@@ -24,22 +24,39 @@ class spider:
         content = content.decode('gbk')  # 电影天堂这个编码很奇怪，居然用gbk
         return content
     
+    def getHotPart(self, soup):
+        '''
+        找到热门板块
+        '''
+        for link in soup.find_all('strong'):
+            if (link.string == '2018新片精品'):  # 找到新片区域的标签，以此找到包含所有新片列表的父标签
+                className = ''
+                while (className != 'co_area2'):
+                    if (link.name == 'div'):
+                        if (link['class'][0] == 'co_area2'):  # 标签的属性(attrs)是一个字典通过key = 'class'取出来的貌似是个数组列表一样的东西，还需要取第一个
+                            className = 'co_area2'
+                        else :
+                            link = link.parent
+                    else:
+                        link = link.parent
+                return link
+    
     def findDLUrl(self, link):
         '''
-            返回下载链接形式：{1:[name, url], 2:[name, url], ...}
+            返回下载链接形式：{a:[name, url], b:[name, url], ...}
         '''
-        id_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-        url_dict = {}
-        i = 1
+#         id_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        url_list = []
+        i = 0
         for tag in link.descendants:
             if tag.name == 'a':
                 if (tag['href'] != '/html/gndy/dyzz/index.html') & (tag['href'] != '/app.html'):
-                    url_list = []
-                    url_list.append(tag.string)
-                    url_list.append(tag['href'])  # 取href的时候和取class的时候又不一样，href的属性不是一个数组，不需要再取下标
-                    url_dict[id_list[i - 1]] = url_list
+                    url_pair = []
+                    url_pair.append(tag.string)
+                    url_pair.append(tag['href'])  # 取href的时候和取class的时候又不一样，href的属性不是一个数组，不需要再取下标
+                    url_list.append(url_pair)
                     i = i + 1
-        return url_dict
+        return url_list
     
     def findMagnetUrl(self, link):
         '''
