@@ -61,7 +61,7 @@ if __name__ == '__main__':
     root = Tk()
     root.geometry('1050x650')  # 这里不是*而是英文的x...
     root.resizable(0, 0)
-    root.title("Movie Crane ver.2.0.1")
+    root.title("Movie Crane ver.2.0.2")
     Label(root, text="Movie Crane", font=('Consola', 30), justify=LEFT).pack(side=TOP, pady=20)
     
     ############################################################################# 通过bs4得到热门板块列表
@@ -100,7 +100,8 @@ if __name__ == '__main__':
     
     Button(buttonFrm, text="全    选/取   消", width=25, command=selectAll).pack(side=TOP, pady=30)
     Button(buttonFrm, text="下       载", width=25, command=download).pack(side=TOP, pady=30)
-    Label(buttomFrm, text="*调用迅雷API可能不响应等情况，建议下载最新版迅雷，并在下载前先打开迅雷 -。-    ——By Tsuru", font=('Arial', 10)).pack(side=RIGHT, anchor=SE)
+    Label(buttomFrm, text="数据来源:https://www.dytt8.net", font=('Arial', 10)).pack(side=TOP, anchor=SE)
+    Label(buttomFrm, text="*调用迅雷API可能不响应等情况，建议下载最新版迅雷，并在下载前先打开迅雷 -。-    ——By Tsuru", font=('Arial', 10)).pack(side=TOP, anchor=SE)
     listFrm.pack(side=LEFT, padx=60)
     buttonFrm.pack(side=RIGHT, padx=60)
     topFrm.pack(side=TOP)
