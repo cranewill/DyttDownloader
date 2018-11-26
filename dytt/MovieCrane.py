@@ -11,6 +11,7 @@ import wmi;
 import base64;
 from spider import spider;
 from tkinter import *;
+from tkinter import ttk;
 from PIL import Image, ImageTk;
 from crane import img as craneImg;
 from log import Log;
@@ -75,16 +76,25 @@ if __name__ == '__main__':
     ############################################################################# UI显示
     mainFrm = Frame(root)
     topFrm = Frame(mainFrm)
-    listFrm = Frame(topFrm)
-    buttonFrm = Frame(topFrm)
     buttomFrm = Frame(mainFrm)
+    showFrm = Frame(topFrm)
+    buttonFrm = Frame(topFrm)
+    
+    tab = ttk.Notebook(showFrm, width=550) # 增加标签页
+    hotFrm = Frame(tab)
+    todoFrm = Frame(tab)
+    
     for pair in url_list:
         checked = IntVar()
         checkStateList.append(checked)
-        wight = Checkbutton(listFrm, text=pair[0], font=('Arial', 10), variable=checked)
+        wight = Checkbutton(hotFrm, text=pair[0], font=('Arial', 10), variable=checked)
         checkWigetList.append(wight)
         wight.pack(side=TOP, anchor=W)
         row = row + 1
+    tab.add(hotFrm, text="近期热门")
+    
+    Label(todoFrm, text="敬请期待 >.<", font=('Arial', 15)).pack()
+    tab.add(todoFrm, text="敬请期待")
     
     logger.info("正在地下城手册上签名...")
     tmpImg = open('tmp.jpg', 'wb+') # 临时文件用来保存jpg文件
@@ -102,8 +112,9 @@ if __name__ == '__main__':
     Button(buttonFrm, text="下       载", width=25, command=download).pack(side=TOP, pady=30)
     Label(buttomFrm, text="数据来源:https://www.dytt8.net", font=('Arial', 10)).pack(side=TOP, anchor=SE)
     Label(buttomFrm, text="*调用迅雷API可能不响应等情况，建议下载最新版迅雷，并在下载前先打开迅雷 -。-    ——By Tsuru", font=('Arial', 10)).pack(side=TOP, anchor=SE)
-    listFrm.pack(side=LEFT, padx=60)
-    buttonFrm.pack(side=RIGHT, padx=60)
+    tab.pack()
+    showFrm.pack(side=LEFT, padx=15)
+    buttonFrm.pack(side=RIGHT, padx=15)
     topFrm.pack(side=TOP)
     buttomFrm.pack(side=BOTTOM, pady=20)
     mainFrm.pack()
