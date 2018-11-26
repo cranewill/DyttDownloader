@@ -46,7 +46,7 @@ def download():
 
 if __name__ == '__main__':
     logger = Log()
-    logger.info("MOVIE CRANE VER.2.0.1")
+    logger.info("MOVIE CRANE VER.2.0.2")
     logger.info("正在搜寻任务...")
     wmInfo = wmi.WMI()
     sys = wmInfo.Win32_OperatingSystem()[0]
