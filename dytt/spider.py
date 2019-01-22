@@ -36,7 +36,7 @@ class spider:
         '''
         try:
             for link in soup.find_all('strong'):
-                if (link.string == '2018新片精品'):  # 找到新片区域的标签，以此找到包含所有新片列表的父标签
+                if (link.string == '2019新片精品'):  # 找到新片区域的标签，以此找到包含所有新片列表的父标签
                     className = ''
                     while (className != 'co_area2'):
                         if (link.name == 'div'):

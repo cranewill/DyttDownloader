@@ -47,7 +47,7 @@ def download():
 
 if __name__ == '__main__':
     logger = Log()
-    logger.info("MOVIE CRANE VER.2.0.2")
+    logger.info("MOVIE CRANE VER.2.0.3")
     logger.info("正在搜寻任务...")
     wmInfo = wmi.WMI()
     sys = wmInfo.Win32_OperatingSystem()[0]
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     root = Tk()
     root.geometry('1050x650')  # 这里不是*而是英文的x...
     root.resizable(0, 0)
-    root.title("Movie Crane ver.2.0.2")
+    root.title("Movie Crane ver.2.0.3")
     Label(root, text="Movie Crane", font=('Consola', 30), justify=LEFT).pack(side=TOP, pady=20)
     
     ############################################################################# 通过bs4得到热门板块列表

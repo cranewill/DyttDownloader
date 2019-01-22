@@ -3,3 +3,4 @@
 /dytt/dytt.spec
 /dytt/__pycache__
 /.settings/*.prefs
+/dytt/log.txt
